@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cave Chess — Local Chess Engine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Cave Chess</h1>
+      <p class="subtitle">Local chess engine — play in your browser</p>
+    </header>
+
+    <main>
+      <div class="game-container">
+        <!-- Left panel: captured pieces + board -->
+        <div class="board-section">
+          <div class="captured-pieces" id="captured-black"></div>
+          <div class="board-wrapper">
+            <div class="rank-labels" id="rank-labels"></div>
+            <div id="board" class="board"></div>
+          </div>
+          <div class="file-labels" id="file-labels"></div>
+          <div class="captured-pieces" id="captured-white"></div>
+        </div>
+
+        <!-- Right panel: controls + move history -->
+        <div class="side-panel">
+          <div class="status-bar" id="status">White to move</div>
+
+          <div class="engine-info" id="engine-info"></div>
+
+          <!-- Timer -->
+          <div class="timer-section" id="timer-section" style="display:none">
+            <div class="timer-display" id="timer-white">
+              <div class="timer-label">White</div>
+              <div class="timer-time" id="timer-white-time">10:00</div>
+            </div>
+            <div class="timer-display" id="timer-black">
+              <div class="timer-label">Black</div>
+              <div class="timer-time" id="timer-black-time">10:00</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="control-group">
+              <label for="game-mode">Game Mode</label>
+              <select id="game-mode">
+                <option value="pvai" selected>Player vs AI</option>
+                <option value="pvp">Player vs Player</option>
+                <option value="aivai">AI vs AI</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="difficulty">Difficulty</label>
+              <select id="difficulty">
+                <option value="beginner">Beginner (~800)</option>
+                <option value="easy">Easy (~1000)</option>
+                <option value="medium" selected>Medium (~1200)</option>
+                <option value="hard">Hard (~1400)</option>
+                <option value="expert">Expert (~1600)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="control-group">
+              <label for="play-as">Play as</label>
+              <select id="play-as">
+                <option value="white" selected>White</option>
+                <option value="black">Black</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="timer-mode">Timer</label>
+              <select id="timer-mode">
+                <option value="none">No Timer</option>
+                <option value="1+0">1 min</option>
+                <option value="3+0">3 min</option>
+                <option value="3+2">3 min + 2s</option>
+                <option value="5+0">5 min</option>
+                <option value="5+3">5 min + 3s</option>
+                <option value="10+0">10 min</option>
+                <option value="10+5">10 min + 5s</option>
+                <option value="15+10">15 min + 10s</option>
+                <option value="30+0">30 min</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <span>Animate moves</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="animate-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="controls">
+            <div class="control-group">
+              <label for="board-theme">Board Theme</label>
+              <select id="board-theme">
+                <option value="classic" selected>Classic</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="purple">Purple</option>
+                <option value="coral">Coral</option>
+                <option value="ice">Ice</option>
+                <option value="wood">Wood</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button id="btn-new" class="btn btn-primary">New Game</button>
+            <button id="btn-undo" class="btn">Undo</button>
+            <button id="btn-flip" class="btn">Flip Board</button>
+            <button id="btn-resign" class="btn btn-danger">Resign</button>
+            <button id="btn-stop" class="btn btn-danger" style="display:none">Stop</button>
+          </div>
+
+          <div class="move-history-container">
+            <h3>Moves</h3>
+            <div class="move-history" id="move-history"></div>
+          </div>
+
+          <div class="game-result" id="game-result" style="display:none">
+            <div class="result-text" id="result-text"></div>
+            <button id="btn-new-after" class="btn btn-primary">Play Again</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Promotion dialog -->
+    <div class="modal-overlay" id="promo-modal" style="display:none">
+      <div class="modal">
+        <h3>Promote to</h3>
+        <div class="promo-options" id="promo-options"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/chess.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
